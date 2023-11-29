@@ -1,14 +1,30 @@
+
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const mongoose = require('mongoose')
+const { pool } = require('./db')
 
 require('dotenv').config()
 
 const port = process.env.PORT || 5000
 
-app.use(cors('*'))
+app.use(cors({
+  origin: 'http://localhost:5173'
+}))
 app.use(express.json())
+
+const connectToDatabase = async () => {
+  try {
+    const connection = await pool.getConnection()
+    console.log('Conexión a la base de datos exitosa')
+    connection.release()
+  } catch (error) {
+    console.error('Error al conectar a la base de datos:', error.message)
+    process.exit(1)
+  }
+};
+
+connectToDatabase()
 
 app.use('/api/login', require('./routes/login'))
 app.use('/api/signup', require('./routes/signup'))
@@ -20,6 +36,7 @@ app.use('/api/todos', require('./routes/todos'))
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
+  
 })
 
 app.listen(port, () => {
