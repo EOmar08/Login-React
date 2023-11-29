@@ -11,7 +11,6 @@ router.post('/', (req, res) => {
             })
         )
     }
-
     //Crear el usuario: name, username, password
     res.status(200).json(jsonResponse(200, {message: 'Usuario creado'}))
 

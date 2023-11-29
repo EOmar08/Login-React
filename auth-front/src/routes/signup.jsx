@@ -1,14 +1,16 @@
 import { useState } from "react"
 import { UseAuth } from '../auth/useAuth'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { API_URL } from "../auth/constants"
 
 export function Signup() {
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errorResponse, setErrorResponse] = useState('')
 
   const auth = UseAuth()
+  const goTo = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -19,13 +21,22 @@ export function Signup() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name, username, password})
+        body: JSON.stringify({
+          name,
+          username,
+          password
+        }),
       })
 
       if(response.ok){
         console.log('Usuario creado con exito')
+        goTo('/')
+        setErrorResponse('')
       }else{
         console.log('Error al crear el usuario')
+        const json = await response.json()
+        setErrorResponse(json.body.error)
+        return
       }
       
     } catch (error) {
@@ -41,6 +52,7 @@ export function Signup() {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Signup</h1>
+      {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
       <label>Name</label>
       <input 
       type="text" 
