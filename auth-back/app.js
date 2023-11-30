@@ -13,18 +13,35 @@ app.use(cors({
 }))
 app.use(express.json())
 
+// Conexión a la base de datos
 const connectToDatabase = async () => {
   try {
-    const connection = await pool.getConnection()
-    console.log('Conexión a la base de datos exitosa')
-    connection.release()
+    const connection = await pool.getConnection();
+    console.log('Conexión a la base de datos exitosa');
+    connection.release();
   } catch (error) {
-    console.error('Error al conectar a la base de datos:', error.message)
-    process.exit(1)
+    console.error('Error al conectar a la base de datos:', error.message);
+    process.exit(1);
   }
 };
 
-connectToDatabase()
+connectToDatabase();
+
+
+
+// const connectToDatabase = async () => {
+//   try {
+//     const connection = await pool.getConnection()
+//     console.log('Conexión a la base de datos exitosa')
+//     connection.release()
+//   } catch (error) {
+//     console.error('Error al conectar a la base de datos:', error.message)
+//     process.exit(1)
+//   }
+// };
+// connectToDatabase()
+
+
 
 app.use('/api/login', require('./routes/login'))
 app.use('/api/signup', require('./routes/signup'))

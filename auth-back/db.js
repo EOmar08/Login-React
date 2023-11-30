@@ -1,11 +1,14 @@
-const { createPool } = require('mysql2/promise');
+const mysql = require('mysql2/promise')
 
-const pool = createPool({
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: '',
-  database: 'reactlogin'
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  port: process.env.DB_PORT || 3306,
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'reactlogin',
+  // connectionLimit: 10,
 });
 
-module.exports = { pool };
+module.exports = {
+  pool,
+};
