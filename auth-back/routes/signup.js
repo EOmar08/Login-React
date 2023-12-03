@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { json } = require('express');
 const { jsonResponse } = require('../lib/jsonResponse');
-const { userSchema, saveUser, usernameExist } = require('../schema/user');
+const { saveUser, usernameExist } = require('../schema/user');
 
 router.post('/', async (req, res) => {
   const { name, username, password } = req.body;
