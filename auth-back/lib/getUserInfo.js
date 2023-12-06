@@ -1,4 +1,4 @@
-function getUserInfo(user) {
+exports.getUserInfo = function (user) {
     return {
         username: user.username,
         name: user.name,
@@ -6,4 +6,12 @@ function getUserInfo(user) {
     }
 }
 
-module.exports = getUserInfo
+// function getUserInfo(user) {
+//     return {
+//         username: user.username,
+//         name: user.name,
+//         id: user.id
+//     }
+// }
+
+// module.exports = getUserInfo

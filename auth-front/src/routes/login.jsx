@@ -27,9 +27,15 @@ export function Login() {
       })
 
       if(response.ok){
-        console.log('Logeado correctamente')
-        goTo('/')
-        setErrorResponse('')
+        console.log('Logeado correctamente');
+        // goTo('/')
+        setErrorResponse('');
+        
+        const json = await response.json();
+        if (json.body.accessToken && json.body.refreshToken) {
+            auth.saveUser(json);
+            goTo('/dashboard');
+        }
       }else{
         console.log('Error al logearse')
         const json = await response.json()

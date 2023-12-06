@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 const { pool } = require('../db')
 const { generateAccessToken, generateRefreshToken } = require('../auth/generateTokens')
+const { getUserInfo } = require('../lib/getUserInfo')
+
 // const { tokenSchema } = require('./token')
 
 // const userSchema = {
