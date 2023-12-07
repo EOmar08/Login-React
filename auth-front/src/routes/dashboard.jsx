@@ -1,7 +1,11 @@
+import { UseAuth } from '../auth/useAuth'
+
 export function Dashboard() {
+  const auth = UseAuth()
+  console.log(auth.getUser());
+
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <h1>Dashboard de {auth.getUser().name } </h1>
+
   );
 }
